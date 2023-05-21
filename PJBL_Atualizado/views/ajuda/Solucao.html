@@ -1,0 +1,19 @@
+{% extends "ajuda/Ajuda.html" %}
+{% block content %}
+        <div class="ajuda-page">
+            <h1>Todas as chamadas solucionadas: </h1>
+            <ul>
+                {% for solucao in solucao %}
+                <li>ID: {{ solucao.id }}</li>
+                <li>Número da vaga: {{ solucao.numero_vaga }}</li>
+                <li>Data da solução: {{ solucao.data_hora }}</li>
+                <li>Descrição: {{ solucao.descricao  }}</li>
+                <li>Status: {{ solucao.status  }}</li>
+                <br>
+                {% endfor %}
+            </ul>
+            <br>
+            <p>Voltar para <a href="/ajuda/">Voltar para a ajuda</a>!</p>
+        </div>
+
+{% endblock %}
