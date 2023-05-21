@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="static/css/iot_index.css">
+    </head>
+
+    <body>
+        <div class="topo" ></div>
+        <div class="area_esquerda"></div>
+        <div class="area_questionario">
+            <div class="questionario">
+                <form class="formulario_sensor" enctype="multipart/form-data" action="/iot/save_actuators" method="POST">
+                    <input placeholder = 'Nome', name = 'name', id = 'name', type='text'>
+                    <input placeholder = 'Modelo', name = 'model', id = 'model', type='text'>
+                    <input placeholder = 'Marca', name = 'brand', id = 'brand', type='text'>
+                    <input placeholder = 'Tensão', name = 'voltage', id = 'voltage', type='text'>
+                    <input placeholder = 'Actuator Type', name = 'actuator_type', id = 'actuator_type', type='text'>
+                    <input placeholder = 'Informações Adicionais', name = 'description', rows = 1, id = 'description'>
+                    <input type="checkbox" placeholder = 'Atuador ativo', name = "is_active", id = "is_active", checked=''>
+                    <button type="submit" >Cadastrar Atuador</button>
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>

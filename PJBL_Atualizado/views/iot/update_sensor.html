@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="static/css/iot_index.css">
+    </head>
+
+    <body>
+        <div class="topo" ></div>
+        <div class="area_esquerda"></div>
+        <div class="area_questionario">
+            <div class="questionario">
+                <form class="formulario_sensor" enctype="multipart/form-data" action="/iot/save_sensor_changes" method="POST">
+                    <input type="hidden"  id="id" name = "id" value="{{ sensor[0].id }}">
+                    <input placeholder = 'Nome', name = 'name', id = 'name', type='text', value={{sensor[0].name}}>
+                    <input placeholder = 'Modelo', name = 'model', id = 'model', type='text', value={{sensor[0].model}}>
+                    <input placeholder = 'Marca', name = 'brand', id = 'brand', type='text', value={{sensor[0].brand}}>
+                    <input placeholder = 'Tensão', name = 'voltage', id = 'voltage', type='text', value={{sensor[0].voltage}}>
+                    <input placeholder = 'Unidade de Medida', name = 'measure', id = 'measure', type='text', value={{sensor[0].measure}}>
+                    <input placeholder = 'Informações Adicionais', name = 'description', rows = 1, id = 'description', value={{sensor[0].description}}>
+                    <input type="checkbox" placeholder = 'Sensor ativo', name = "is_active", id = "is_active", checked=''>
+                    <button type="submit" >Atualizar Sensor</button>
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>
