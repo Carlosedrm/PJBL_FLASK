@@ -1,3 +1,4 @@
+from flask_login import current_user
 from re import template
 from flask import Blueprint, render_template,redirect,url_for,request, flash
 from models import db, Conserto, Solucao, Reclamacao, Vaga
@@ -28,8 +29,9 @@ def conserto_geral():
     if request.method == "POST":
         numero_vaga = request.form["numero_vaga"]
         descricao = request.form["descricao"]
+    user = current_user.id
 
-    new_conserto = Conserto(numero_vaga = numero_vaga, descricao  = descricao)
+    new_conserto = Conserto(id_user = user, numero_vaga = numero_vaga, descricao  = descricao)
     db.session.add(new_conserto)
     db.session.commit()
 
@@ -40,8 +42,9 @@ def reclamacao_relato():
     if request.method == "POST":
         reclamacao = request.form["reclamacao"]
         titulo = request.form["titulo"]
+    user = current_user.id
 
-    new_reclamacao = Reclamacao(titulo = titulo, descricao = reclamacao)
+    new_reclamacao = Reclamacao(id_user = user, titulo = titulo, descricao = reclamacao)
     db.session.add(new_reclamacao)
     db.session.commit()
 
