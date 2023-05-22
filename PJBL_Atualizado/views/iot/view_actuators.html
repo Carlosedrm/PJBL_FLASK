@@ -5,6 +5,13 @@
 
     <body>
         <li class="breadcrumb-item active"><a href="/iot">Voltar para Home Iot</a></li>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="form">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
         <table id="view_sensors" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
