@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from flask_login import login_user, login_required, logout_user
-from flask_login import login_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.auth.user import User
 from models.db import db
@@ -8,7 +7,6 @@ from models.db import db
 auth = Blueprint("auth", __name__, template_folder="./views/", static_folder='./static/', root_path="./")
 
 logins = []
-saved_funcionario = []
 
 @auth.route("/")
 @auth.route("/login")
@@ -19,11 +17,17 @@ def login():
 def cadastrar():
     return render_template("auth/Cadastro.html")
 
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('auth.login'))
+
 # Coisas para cadastro
 
-@auth.route("/listaFuncionario")
+@auth.route("/lista_funcionario")
 def funcionario_index():
-    global saved_funcionario
+    saved_funcionario = User.query.all()
     return render_template("listagem/ListaFuncionario.html", funcionarios = saved_funcionario)
 
 @auth.route("/save_funcionario", methods=["POST","GET"])
@@ -38,8 +42,6 @@ def save_funcionario():
         idade_funcionario = request.form["idade_funcionario"]
         senha_funcionario = request.form["senha_funcionario"]
 
-    global saved_funcionario
-    saved_funcionario.append(str(nome_funcionario)+", " +str(usuario_funcionario)+ ", "+str(email_funcionario)+", "+str(contato_funcionario)+", " +str(cpf_funcionario)+", " +str(sexo_funcionario)+", " +str(idade_funcionario)+", " +str(senha_funcionario))
     
     # Coisas para a autenticação
     user = User.query.filter_by(email=email_funcionario).first()
@@ -49,25 +51,26 @@ def save_funcionario():
         flash('Esse E-mail ou Usuario já existe!')
         return redirect(url_for('auth.cadastrar'))
     
-    new_user = User(name=nome_funcionario, username=usuario_funcionario, email=email_funcionario, contato=contato_funcionario, sexo=sexo_funcionario,idade=idade_funcionario,password=senha_funcionario)
-    #new_user = User(email=email, name=name, username=username, password=generate_password_hash(password, method='sha256'))
+    new_user = User(name=nome_funcionario, username=usuario_funcionario, cpf = cpf_funcionario, email=email_funcionario, contato=contato_funcionario, sexo=sexo_funcionario,idade=idade_funcionario,password=senha_funcionario)
 
     db.session.add(new_user)
     db.session.commit()
 
-    return redirect(url_for("auth.funcionario_index"))
+    return redirect(url_for("auth.login"))
 
 
 # Coisas para login
 
 @auth.route("/loginaceito")
 def loginaceito():
+    
     return redirect(url_for("auth.funcionario_index"))
 
 @auth.route("/login_salvo", methods=["POST"])
 def login_salvo():
     usuario = request.form.get("usuario")
     senha = request.form.get("password")
+    remember = True if request.form.get('remember') else False
 
     user = User.query.filter((User.username==usuario) | (User.email==usuario)).first()
 
@@ -78,6 +81,7 @@ def login_salvo():
     global logins
     logins.append("Usuario: " + str(usuario) + "Senha: " + str(senha))
 
+    login_user(user, remember=remember)
     return redirect(url_for("auth.loginaceito"))
 
 # Coisas para a autenticação
