@@ -6,8 +6,6 @@ from models.db import db
 
 auth = Blueprint("auth", __name__, template_folder="./views/", static_folder='./static/', root_path="./")
 
-logins = []
-
 @auth.route("/")
 @auth.route("/login")
 def login():
@@ -28,7 +26,7 @@ def logout():
 @auth.route("/lista_funcionario")
 def funcionario_index():
     saved_funcionario = User.query.all()
-    return render_template("listagem/ListaFuncionario.html", funcionarios = saved_funcionario)
+    return render_template("auth/ListaFuncionario.html", funcionarios = saved_funcionario)
 
 @auth.route("/save_funcionario", methods=["POST","GET"])
 def save_funcionario():
@@ -58,7 +56,6 @@ def save_funcionario():
 
     return redirect(url_for("auth.login"))
 
-
 # Coisas para login
 
 @auth.route("/loginaceito")
@@ -77,9 +74,6 @@ def login_salvo():
     if not user or not senha==senha:
         flash('Usuário ou Senha incorretos!')
         return redirect(url_for('auth.login'))
-    
-    global logins
-    logins.append("Usuario: " + str(usuario) + "Senha: " + str(senha))
 
     login_user(user, remember=remember)
     return redirect(url_for("auth.loginaceito"))
