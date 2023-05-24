@@ -1,4 +1,4 @@
-from flask_login import current_user
+from flask_login import login_user, login_required, logout_user, current_user
 from re import template
 from flask import Blueprint, render_template,redirect,url_for,request, flash
 from models import db, Conserto, Solucao, Reclamacao, Vaga
@@ -10,15 +10,18 @@ def ajuda_index():
     return render_template("/ajuda/Ajuda.html")
 
 @ajuda.route("/conserto")
+@login_required
 def conserto_index():
     vagas = Vaga.query.all()
     return render_template("/ajuda/Conserto.html", vaga = vagas)
 
 @ajuda.route("/reclamacao")
+@login_required
 def reclamacao_index():
     return render_template("/ajuda/Reclamacao.html")
 
 @ajuda.route("/solucao")
+@login_required
 def solucao_index():
     return render_template("/ajuda/Solucao.html")
 
@@ -53,11 +56,13 @@ def reclamacao_relato():
 # Listagem das informações
 
 @ajuda.route("/listar_consertos")
+@login_required
 def listar_consertos():
     consertos = Conserto.query.all()
     return render_template("ajuda/ListarConserto.html", conserto = consertos)
 
 @ajuda.route("/listar_reclamacoes")
+@login_required
 def listar_reclamacoes():
     reclamacoes = Reclamacao.query.all()
     return render_template("ajuda/ListarReclamacao.html", reclamcacao = reclamacoes)
@@ -97,6 +102,7 @@ def delete_reclamacao(id):
 # Para chamadas solucionadas
 
 @ajuda.route("/listar_solucao")
+@login_required
 def listar_solucao():
     solucoes = Solucao.query.all()
     return render_template("/ajuda/Solucao.html", solucao = solucoes)
@@ -106,11 +112,14 @@ def listar_solucao():
 def save_solucao(id):
     conserto = db.session.query(Conserto).filter(Conserto.id == int(id)).first()
     
-    new_solucao = Solucao(numero_vaga = conserto.numero_vaga, descricao = conserto.descricao)
+    new_solucao = Solucao(numero_vaga = conserto.numero_vaga, descricao = conserto.descricao, id_conserto = conserto.id)
+    
     db.session.add(new_solucao)
     db.session.commit()
 
-    # Remove o conserto da tabela
-    Conserto.delete_conserto(id)
+    conserto.status = "Solucionado"
+    db.session.commit()
+
+
     return redirect(url_for("ajuda.listar_solucao"))
 
