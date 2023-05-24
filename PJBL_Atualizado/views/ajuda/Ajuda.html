@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./static/css/ajuda.css" >
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    </head>
+    
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Estacionamento UrbanPark</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/auth">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/auth/cadastrar">Cadastrar</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/iot">IOT</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/ajuda">Ajuda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/ajuda/reclamacao">Reclamações</a>
+                </li>
+              </ul>
+            </div>
+    </nav>
+    <div class="ajuda-page">
+        <h2> Necessita de ajuda para algo mais? Aconteceu algo?</h2>
+        <p><a href="/ajuda/conserto">Sensor precisa de conserto</a>!</p>
+        <p><a href="/ajuda/listar_consertos">Ver os concertos</a>!</p>
+        <p><a href="/ajuda/reclamacao">Reclamação</a>!</p>
+        <p><a href="/ajuda/listar_reclamacoes">Ver as Reclamações</a>!</p>
+        <p><a href="/ajuda/listar_solucao">Ver todas as chamadas solucionadas</a>!</p>
+
+        <p>Voltar para <a href="/">página inicial</a>!</p>
+    </div>
+    <div id="contentex">
+        {% block content %} {% endblock %}
+    </div>
+    
+    </body>
+</html>   

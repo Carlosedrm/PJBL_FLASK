@@ -1,0 +1,24 @@
+{% extends "iot/iot_index.html" %}
+{% block content %}
+    <head>
+        <link rel="stylesheet" href="static/css/iot_index.css">
+    </head>
+
+    <body>
+        <div>
+                <form class="formulario_sensor" enctype="multipart/form-data" action="/iot/save_actuator_changes" method="POST">
+                    <input type="hidden"  id="id" name = "id" value="{{ actuators[0].id }}">
+                    <input placeholder = 'Nome', name = 'name', id = 'name', type='text', value={{actuators[0].name}}>
+                    <input placeholder = 'Modelo', name = 'model', id = 'model', type='text', value={{actuators[0].model}}>
+                    <input placeholder = 'Marca', name = 'brand', id = 'brand', type='text', value={{actuators[0].brand}}>
+                    <input placeholder = 'Tensão', name = 'voltage', id = 'voltage', type='text', value={{actuators[0].voltage}}>
+                    <input placeholder = 'Tipo do Atuador', name = 'actuator_type', id = 'actuator_type', type='text', value={{actuators[0].actuator_type}}>
+                    <input placeholder = 'Informações Adicionais', name = 'description', rows = 1, id = 'description', value={{actuators[0].description}}>
+                    <input type="checkbox" placeholder = 'Atuador ativo', name = "is_active", id = "is_active", checked=''>
+                    <button type="submit" >Atualizar Atuador</button>
+                </form>
+        </div>
+
+    </body>
+
+{% endblock %}

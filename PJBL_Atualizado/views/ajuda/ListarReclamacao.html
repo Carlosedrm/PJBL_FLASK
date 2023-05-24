@@ -1,0 +1,27 @@
+{% extends "ajuda/Ajuda.html" %}
+{% block content %}
+        <div class="ajuda-page">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                    <div>
+                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                        {{ message }}
+                                    </div>
+                                    {% endfor %}
+                                {% endif %}
+            {% endwith %}
+            <h1>Listagem das reclamações dos clientes</h1>
+            <ul>
+                {% for reclamacacao in reclamcacao %}
+                <li>ID: {{ reclamacacao.id }}</li>
+                <li>Assunto: {{ reclamacacao.titulo }}</li>
+                <li>Descrição: {{ reclamacacao.descricao  }}</li>
+                <li></i><a href="/ajuda/delete_reclamacao/{{ reclamacacao.id }}" onclick="return confirm('Tem certeza que deseja excluir essa reclamação?');"> Excluir</a></li>
+                <br>
+                {% endfor %}
+            </ul>
+            <p>Voltar para <a href="/ajuda/">Voltar para a ajuda</a>!</p>
+        </div>
+
+{% endblock %}

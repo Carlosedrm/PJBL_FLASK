@@ -1,0 +1,21 @@
+{% extends "ajuda/Ajuda.html" %}
+{% block content %}
+        <div>
+            <h1>Digite o que deseja mudar sobre o conserto que está occorendo: </h1>
+
+            <form class="ajuda-page" action="/ajuda/save_conserto_changes" method="POST">
+                <input type="hidden"  id="id" name = "id" value="{{ conserto.id }}" required>
+                <p>"Número da vaga: "</p>
+                <select id="numero_vaga" name="numero_vaga">
+                    {% for v in vaga %}
+                        <option value="{{ v.id }}">{{ v.id }}</option>
+                    {% endfor %}
+                </select>
+                <input id="descricao" name = "descricao" value="{{ conserto.descricao }}" required>
+                
+                <button type="submit"  name="submit" value="submit" >Atualizar o registro</button>
+            </form>
+
+        </div>
+
+{% endblock %}

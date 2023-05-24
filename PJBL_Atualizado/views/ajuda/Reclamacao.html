@@ -1,0 +1,16 @@
+{% extends "ajuda/Ajuda.html" %}
+{% block content %}
+    
+    <body>
+    <div class="ajuda-page">
+        <p>Fale sobre o problema que você está tendo ou já teve:</p>
+        <form action="/ajuda/reclamacao_relato" method="POST">
+            <input type="text" id="titulo" name="titulo" placeholder="Titulo do problema: " required/>
+            <input type="text" id="reclamacao" name="reclamacao" placeholder="Fale sua reclamação: " required/>
+            <button type="submit"  name="submit" value="submit" >Mandar</button>
+        </form>
+        <p>Voltar para <a href="/">página inicial</a>!</p>
+    </div>
+
+    </body>
+{% endblock %}

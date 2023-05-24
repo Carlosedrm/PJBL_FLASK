@@ -1,0 +1,30 @@
+{% extends "ajuda/Ajuda.html" %}
+{% block content %}
+        <div class="ajuda-page">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                    <div>
+                                        {{ message }}
+                                    </div>
+                                    {% endfor %}
+                                {% endif %}
+            {% endwith %}
+            <h1>Listagem dos concertos</h1>
+            <ul>
+                {% for conserto in conserto %}
+                <li>ID: {{ conserto.id }}</li>
+                <li>Número da Vaga: {{ conserto.numero_vaga}}</li>
+                <li>Descrição: {{ conserto.descricao  }}</li>
+                <li>Status: {{ conserto.status  }}</li>
+                <li><a href="/ajuda/update_conserto/{{ conserto.id }}"> Editar</a></li>
+                <li><a href="/ajuda/save_solucao/{{ conserto.id }}" onclick="return confirm('Tem certeza que deseja deixar o status dessa chamada como solucionada?');"> Solucionado</a></li>
+                <li><a href="/ajuda/delete_conserto/{{ conserto.id }}" onclick="return confirm('Tem certeza que deseja excluir esse chamada?');"> Excluir</a></li>
+                <br>
+                {% endfor %}
+            </ul>
+            <br>
+            <p>Voltar para <a href="/ajuda/">Voltar para a ajuda</a>!</p>
+        </div>
+
+{% endblock %}
