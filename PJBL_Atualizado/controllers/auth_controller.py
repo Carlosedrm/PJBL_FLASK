@@ -60,8 +60,7 @@ def save_funcionario():
 
 @auth.route("/loginaceito")
 def loginaceito():
-    
-    return redirect(url_for("iot.iot_index"))
+    return redirect(url_for("admin.admin_index"))
 
 @auth.route("/login_salvo", methods=["POST"])
 def login_salvo():
