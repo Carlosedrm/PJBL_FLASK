@@ -15,3 +15,4 @@ from models.ajuda.solucao import Solucao
 from models.ajuda.reclamacao import Reclamacao
 from models.horario.horario import Horario
 from models.horario.armazena_horario import Armazena
+from models.ajuda.solucao_dispositivo import SolucaoDevice
