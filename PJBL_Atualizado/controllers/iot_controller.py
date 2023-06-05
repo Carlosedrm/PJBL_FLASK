@@ -87,7 +87,7 @@ def update_actuator(id):
                         .join(Actuator, Actuator.id == Device.id)\
                         .filter(Actuator.id == int(id)).first()
     
-    return render_template("/iot/update_actuator.html", actuators = actuator)
+    return render_template("/iot/update_actuator.html", actuator = actuator)
 
 @iot.route("/save_actuator_changes", methods = ["POST"])
 def save_actuator_changes():
