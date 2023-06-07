@@ -49,7 +49,7 @@ def save_funcionario():
         flash('Esse E-mail ou Usuario já existe!')
         return redirect(url_for('auth.cadastrar'))
     
-    new_user = User(name=nome_funcionario, username=usuario_funcionario, cpf = cpf_funcionario, email=email_funcionario, contato=contato_funcionario, sexo=sexo_funcionario,idade=idade_funcionario,password=senha_funcionario)
+    new_user = User(name=nome_funcionario, username=usuario_funcionario, cpf = cpf_funcionario, email=email_funcionario, contato=contato_funcionario, sexo=sexo_funcionario,idade=idade_funcionario,password=generate_password_hash(senha_funcionario, method='sha256'))
 
     db.session.add(new_user)
     db.session.commit()
@@ -71,10 +71,10 @@ def login_salvo():
 
     user = User.query.filter((User.username==usuario) | (User.email==usuario)).first()
 
-    if not user or not senha==senha:
+    if not user or not check_password_hash(user.password, senha):
         flash('Usuário ou Senha incorretos!')
         return redirect(url_for('auth.login'))
-
+    
     login_user(user, remember=remember)
     return redirect(url_for("auth.loginaceito"))
 
