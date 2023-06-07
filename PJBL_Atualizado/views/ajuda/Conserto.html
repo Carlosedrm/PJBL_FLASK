@@ -24,7 +24,7 @@
                                                     <option value="{{ v.id }}">{{ v.id }}</option>
                                                 {% endfor %}
                                             </select>
-                                            {{ forms.input(label = 'Descricao', name = 'descricao', id = 'descricao', type='text', box_size = 3) }}
+                                            {{ forms.textarea(label = 'Descricao', name = 'descricao', rows = 1, id = 'descricao', box_size = 8) }}
                                             {{ forms.button(label = 'Cadastrar conserto', box_size = 12) }}
                                         </form>
                                     </div>
