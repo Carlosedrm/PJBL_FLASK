@@ -19,12 +19,15 @@
                                     </div>
                                     <div class="card-body">
                                         <form class="row g-3 justify-content-center" enctype="multipart/form-data" action="/ajuda/conserto_geral" method="POST">
-                                            <select id="numero_vaga" name="numero_vaga">
-                                                {% for v in vaga %}
-                                                    <option value="{{ v.id }}">{{ v.id }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            {{ forms.textarea(label = 'Descricao', name = 'descricao', rows = 1, id = 'descricao', box_size = 8) }}
+                                            <div class="col-md-6">
+                                                <label for="numero_vaga" class="form-label">Número da Vaga</label>
+                                                <select id="numero_vaga" name="numero_vaga" class="form-control">
+                                                    {% for v in vaga %}
+                                                        <option value="{{ v.id }}">{{ v.id }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            {{ forms.textarea(label = 'Descrição', name = 'descricao', rows = 1, id = 'descricao', box_size = 8) }}
                                             {{ forms.button(label = 'Cadastrar conserto', box_size = 12) }}
                                         </form>
                                     </div>
