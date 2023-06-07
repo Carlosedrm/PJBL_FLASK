@@ -14,9 +14,9 @@ def generate_seeds(db:SQLAlchemy):
     db.session.commit()
 
     # Alguns usuarios
-    u1 = User(name = "Roberto Junior", username = "Roberto", cpf = "11567812689", email = "Roberto@gmail.com", contato = "41 997287165", sexo = "Masculino", idade = "35", password = "Senha")
+    u1 = User(name = "Roberto Junior", username = "Roberto", cpf = "11567812689", email = "Roberto@gmail.com", contato = "41 997287165", sexo = "Masculino", idade = "35", password = generate_password_hash("Senha"))
     u1.roles = [role1]
-    u2 = User(name = "Ferb", username = "ferb", cpf = "12345678912", email = "ferb@gmail.com", contato = "41 997287185", sexo = "Masculino", idade = "12", password = "senha")
+    u2 = User(name = "Ferb", username = "ferb", cpf = "12345678912", email = "ferb@gmail.com", contato = "41 997287185", sexo = "Masculino", idade = "12", password = generate_password_hash("senha"))
     u2.roles = [role1]
 
     db.session.add_all([u1, u2])
