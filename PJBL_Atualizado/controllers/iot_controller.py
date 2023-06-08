@@ -38,6 +38,10 @@ def save_sensors():
     measure = request.form.get("measure")
     is_active = True if request.form.get("is_active") == "on" else False
 
+    if not voltage.isdigit():
+            flash('Por favor, insira um número válido para a Tensão')
+            return redirect(url_for('iot.register_sensor'))
+
     Sensor.save_sensor(name, description, brand, model, voltage, is_active, measure)
 
     return redirect(url_for('iot.view_sensors'))
@@ -54,6 +58,12 @@ def update_sensor(id):
 def save_sensor_changes():
     data = request.form.copy()
     data["is_active"] = data.get("is_active") == "on"
+
+    measure = data.get("measure")
+    if not measure.isdigit():
+        flash("Por favor, insira um número válido para a Unidade de Medida")
+        return redirect(url_for("iot.view_sensors"))
+    
     Sensor.update_sensor(data)
     return redirect(url_for("iot.view_sensors"))
 
@@ -76,6 +86,10 @@ def save_actuators():
     actuator_type = request.form.get("actuator_type")
     voltage = request.form.get("voltage")
     is_active = True if request.form.get("is_active") == "on" else False
+
+    if not voltage.isdigit():
+            flash('Por favor, insira um número válido para a Tensão')
+            return redirect(url_for('iot.register_sensor'))
 
     Actuator.save_actuators(name, brand, model, actuator_type, description, is_active, voltage)
 
