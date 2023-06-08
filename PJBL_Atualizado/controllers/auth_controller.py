@@ -49,6 +49,10 @@ def save_funcionario():
         flash('Esse E-mail ou Usuario já existe!')
         return redirect(url_for('auth.cadastrar'))
     
+    if not idade_funcionario.isdigit():
+            flash('Por favor, insira um número válido para a idade.')
+            return redirect(url_for('auth.cadastrar'))
+    
     new_user = User(name=nome_funcionario, username=usuario_funcionario, cpf = cpf_funcionario, email=email_funcionario, contato=contato_funcionario, sexo=sexo_funcionario,idade=idade_funcionario,password=generate_password_hash(senha_funcionario, method='sha256'))
 
     db.session.add(new_user)
