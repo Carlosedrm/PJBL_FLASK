@@ -6,6 +6,13 @@
     
     <div class="container-fluid px-4">
     <h3 class="mt-4">Cadastro de Atuador</h3>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="form">
+                {{ messages[0] }} </a>
+            </div>
+        {% endif %}
+    {% endwith %}
     <div class="vertical-center">
         <div class="container view">
             <div class="justify-content-center">
