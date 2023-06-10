@@ -1,7 +1,7 @@
 from flask_login import login_user, login_required, logout_user, current_user
 from re import template
 from flask import Blueprint, render_template,redirect,url_for,request, flash
-from models import db, Conserto, Solucao, Reclamacao, Vaga
+from models import db, Conserto, Solucao, Reclamacao, Vaga, SolucaoDevice, Device
 
 ajuda = Blueprint("ajuda", __name__, template_folder='./views/', static_folder='./static/', root_path="./")
 
@@ -118,6 +118,11 @@ def save_solucao(id):
     db.session.commit()
 
     conserto.status = "Solucionado"
+    db.session.commit()
+
+    # Para juntar as tabelas
+    new_solucao_device = SolucaoDevice(id_device = conserto.numero_vaga, id_solucao = new_solucao.id)
+    db.session.add(new_solucao_device)
     db.session.commit()
 
 
