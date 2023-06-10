@@ -38,7 +38,11 @@
                                         <td>{{ conserto.descricao  }}</td>
                                         <td>{{ conserto.status  }}</td>
                                         <td><i class="fa fa-refresh"></i><a href="/ajuda/update_conserto/{{ conserto.id }}"> Editar</a></td>
+                                        {% if conserto.status != "Solucionado" %}
                                         <td><i class="fa fa-cog"></i><a href="/ajuda/save_solucao/{{ conserto.id }}" onclick="return confirm('Tem certeza que deseja deixar o status dessa chamada como solucionada?');"> Solucionado</a></td>
+                                        {% else %}
+                                        <td><i class="fa fa-cog"></i> Solucionado!</a></td>
+                                        {% endif %}
                                         <td><i class="fa fa-trash"></i><a href="/ajuda/delete_conserto/{{ conserto.id }}" onclick="return confirm('Tem certeza que deseja excluir esse chamada?');"> Excluir</a></td>
                                     </tr>
                                     {% endfor %}
