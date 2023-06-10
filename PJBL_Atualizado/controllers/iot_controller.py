@@ -60,9 +60,9 @@ def save_sensor_changes():
     data["is_active"] = data.get("is_active") == "on"
 
     voltage = data.get("voltage")
-    if not voltage.isdigit():
-        flash("Por favor, insira um número válido para a Tensão")
-        return redirect(url_for("iot.view_sensors"))
+    if not voltage.replace(".", "").isdigit():
+        flash('Por favor, insira um número válido para a Tensão')
+        return redirect(url_for('iot.register_sensor'))
     
     Sensor.update_sensor(data)
     return redirect(url_for("iot.view_sensors"))
@@ -109,9 +109,9 @@ def save_actuator_changes():
     data["is_active"] = data.get("is_active") == "on"
 
     voltage = data.get("voltage")
-    if not voltage.isdigit():
-        flash("Por favor, insira um número válido para a Tensão")
-        return redirect(url_for("iot.view_actuators"))
+    if not voltage.replace(".", "").isdigit():
+        flash('Por favor, insira um número válido para a Tensão')
+        return redirect(url_for('iot.view_actuators'))
     
     Actuator.update_actuator(data)
     return redirect(url_for("iot.view_actuators"))
