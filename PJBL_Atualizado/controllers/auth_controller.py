@@ -9,10 +9,12 @@ auth = Blueprint("auth", __name__, template_folder="./views/", static_folder='./
 @auth.route("/")
 @auth.route("/login")
 def login():
+    logout_user()
     return render_template("auth/Login.html")
 
 @auth.route("/cadastrar")
 def cadastrar():
+    logout_user()
     return render_template("auth/Cadastro.html")
 
 @auth.route('/logout')
