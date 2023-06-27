@@ -1,27 +1,33 @@
 from re import template
+from flask_login import login_user, login_required, logout_user, current_user
 from flask import Blueprint, render_template,redirect,url_for,request, flash
-from models import Sensor, Device, Actuator, db
+from models import Horario, Sensor, Device, Actuator, db, Vaga
 
 iot = Blueprint("iot", __name__, template_folder='./views/', static_folder='./static/', root_path="./")
 
 @iot.route("/")
+@login_required
 def iot_index():
     return render_template("/iot/Iot.html")
 
 @iot.route("/register_sensor")
+@login_required
 def register_sensor():
     return render_template("/iot/register_sensor.html")
 
 @iot.route("/register_actuator")
+@login_required
 def register_actuator():
     return render_template("/iot/register_actuator.html")
 
 @iot.route("/view_sensors")
+@login_required
 def view_sensors():
     sensors = Sensor.get_sensors()
     return render_template("/iot/view_sensors.html", sensors = sensors)
 
 @iot.route("/view_actuators")
+@login_required
 def view_actuators():
     actuators = Actuator.get_actuators()
     return render_template("iot/view_actuators.html", actuators = actuators)
@@ -62,7 +68,7 @@ def save_sensor_changes():
     voltage = data.get("voltage")
     if not voltage.replace(".", "").isdigit():
         flash('Por favor, insira um número válido para a Tensão')
-        return redirect(url_for('iot.register_sensor'))
+        return redirect(url_for('iot.view_sensors'))
     
     Sensor.update_sensor(data)
     return redirect(url_for("iot.view_sensors"))
